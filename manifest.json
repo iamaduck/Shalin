@@ -1,7 +1,7 @@
 {
 	"name": "Shalin",
 	"description": "Suggests math symbol replacements for what you're typing.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"manifest_version": 2,
 	"author": "Ben Potter",
 
@@ -14,8 +14,8 @@
 		"persistent": false
 	},
   
-	"page_action": {
-		"default_popup": "popup.html",
+	"browser_action": {
+		"default_popup": "popup/popup.html",
 		"default_icon": {
 			"16": "imgs/img_16.png",
 			"32": "imgs/img_32.png",
