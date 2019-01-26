@@ -1,4 +1,4 @@
-function activateIME() {
-	chrome.input.ime.activate();
-}
-document.getElementById('enableIME').onclick = activateIME;
+/*document.getElementById('enableIME').onclick = activateIME;
+document.getElementById('disableIME').onclick = deactivateIME;
+
+var port = chrome.extension.connect*/

@@ -1,6 +1,6 @@
 var context_id = -1;
 
-console.log("Shalin background js started");
+console.log("Shalin - Background script started");
 
 chrome.input.ime.onFocus.addListener(function(context) {
 	console.log("Hello"); //'onFocus:' + context.contextID
@@ -16,3 +16,13 @@ chrome.input.ime.onKeyEvent.addListener(function(engineID, keyData) {
 			return false;
 		}
 });
+
+/*function activateIME() {
+	console.log("Shalin - Chrome IME activated");
+	chrome.input.ime.activate();
+}
+
+function deactivateIME() {
+	console.log("Shalin - Chrome IME deactivated");
+	chrome.input.ime.deactivate();
+}*/
