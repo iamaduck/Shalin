@@ -1,4 +1,9 @@
-/*document.getElementById('enableIME').onclick = activateIME;
-document.getElementById('disableIME').onclick = deactivateIME;
+function toggleIME(toggleState) {
+	console.log("Shalin - Toggling IME...");
+	chrome.runtime.sendMessage({toggle: toggleState}, function(response) {
+		console.log(response.state);
+	});
+};
 
-var port = chrome.extension.connect*/
+document.getElementById('enableIME').onclick = toggleIME("enable");
+document.getElementById('disableIME').onclick = toggleIME("disable");

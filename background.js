@@ -17,12 +17,24 @@ chrome.input.ime.onKeyEvent.addListener(function(engineID, keyData) {
 		}
 });
 
-/*function activateIME() {
-	console.log("Shalin - Chrome IME activated");
+function activateIME(sender) {
+	console.log("Shalin - Chrome IME activated by " + sender.tab.url);
 	chrome.input.ime.activate();
 }
 
-function deactivateIME() {
-	console.log("Shalin - Chrome IME deactivated");
+function deactivateIME(sender) {
+	console.log("Shalin - Chrome IME deactivated by " + sender.tab.url);
 	chrome.input.ime.deactivate();
-}*/
+}
+
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		if (request.toggleState == "enable") {
+			activateIME(sender);
+			sendResponse({state: "Shalin - Chrome IME enabled"});
+		} else if (request.toggleState == "disable") {
+			deactivateIME(sender);
+			sendResponse({state: "Shalin - Chrome IME disabled"});
+		}
+	}
+);
