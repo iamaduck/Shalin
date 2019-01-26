@@ -1,4 +1,5 @@
 var context_id = -1;
+var symbols = [];
 
 console.log("Shalin - Background script started");
 
@@ -26,3 +27,43 @@ function deactivateIME() {
 	console.log("Shalin - Chrome IME deactivated");
 	chrome.input.ime.deactivate();
 }*/
+
+function setSymbol()
+{
+	
+	symbols = [{symbol:'=',triggers:["eql","equal","equals"]}];
+	
+};
+
+function TESTprintSymbol()
+{
+	
+	console.log("hello");
+	console.log(symbols);
+};
+
+function replaceTrigger()
+{
+	localSymbols = symbols;
+	
+	for (i = 0; i < 1; i++) 
+	{
+     localSymbols.forEach(function (stp) 
+		{
+			stp.triggers.forEach(function (trigger)
+			{
+				console.log(trigger);
+			});
+		});
+	}
+	
+}
+
+/*	
+		localSymbols.forEach(function (stp) 
+		{
+			stp:triggers.forEach(function (trigger)
+			{
+				console.log(trigger);
+			});
+		});*/
