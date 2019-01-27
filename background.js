@@ -26,7 +26,6 @@ function activateIME() {
 
 function deactivateIME() {
 	console.log("Shalin - Chrome IME deactivated");
-<<<<<<< HEAD
 	chrome.runtime.reload();							// I know this is gross, but it's the best way to do this where Chrome will allow typing in password/protected text fields.
 }
 
@@ -43,9 +42,6 @@ chrome.runtime.onMessage.addListener(
 		}
 	}
 );
-=======
-	chrome.input.ime.deactivate();
-}*/
 
 function setSymbol()
 {
@@ -147,4 +143,3 @@ function replaceTrigger(string,maxLength)
 				console.log(trigger);
 			});
 		});*/
->>>>>>> origin/marks
