@@ -1,5 +1,8 @@
 var context_id = -1;
 var symbols = [];
+var textBuffer = "";
+var TEXTBUFFER_MAX = 50;
+
 
 var active = false;
 
@@ -10,14 +13,51 @@ chrome.input.ime.onFocus.addListener(function focusWindow(context) {
 });
 
 chrome.input.ime.onKeyEvent.addListener(function backTick(engineID, keyData) {
-		console.log("Hello");
+		
+		console.log("String Buffer: " + textBuffer);
+		
 		if (keyData.type == "keydown" && keyData.key.match(/`/)) {
-			chrome.input.ime.commitText({"contextID": context_id, "text": "hello"});
+			//chrome.input.ime.clearComposition({"contextID": context_id});
+			//chrome.input.ime.setComposition({"contextID": context_id, "text": "TEST", "selectionStart": 0, "cursor": 0});
+			//chrome.input.ime.commitText({"contextID": context_id, "text": "hello"});
+			
+			var triggerReplaceVal = replaceTrigger(textBuffer);
+			
+			console.log("triggerReplaceVal.symbol: " + triggerReplaceVal.symbol);
+			console.log("triggerReplaceVal.lengthToDel: " + triggerReplaceVal.lengthToDel);
+			
+			if (triggerReplaceVal.lengthToDel == -1)
+			{
+				textBuffer += keyData.value;
+				if (textBuffer.length > TEXTBUFFER_MAX) {textBuffer = textBuffer.slice(textBuffer.length - TEXTBUFFER_MAX);}
+			}
+			else
+			{
+				delChars(triggerReplaceVal.lengthToDel+2);
+				textBuffer = textBuffer.slice(triggerReplaceVal.lengthToDel);
+				
+				console.log("triggerReplaceVal: " + triggerReplaceVal.symbol);
+				chrome.input.ime.commitText({"contextID": context_id, "text": triggerReplaceVal.symbol});
+				textBuffer += triggerReplaceVal.symbol;
+				
+			}
+			
 			return true;
-		} else {
+		} else if (keyData.type == "keydown" && keyData.key.match(/[ -~]+/)) {
+			console.log("keyData.value: " + textBuffer);
+			textBuffer += keyData.key;
+			if (textBuffer.length > TEXTBUFFER_MAX) {textBuffer = textBuffer.slice(textBuffer.length - TEXTBUFFER_MAX);}
 			return false;
-		}
+		//} else if (keyData.type == "keydown" && keyData.key.match(/"8"/) {
+		//	textBuffer = textBuffer.slice(1);
+		};
 });
+
+function delChars(presses) {
+	for (i = 0; i < presses; i++) {
+		chrome.input.ime.sendKeyEvents({"contextID": context_id, "keyData": [{"type": "keydown", "requestId": "1", "key": "8", "code": "Backspace"}]})
+	}
+}
 
 function activateIME() {
 	console.log("Shalin - Chrome IME activated");
@@ -57,17 +97,17 @@ function TESTprintSymbol()
 	console.log(symbols);
 };
 
-function replaceTrigger(string,maxLength)
+function replaceTrigger(string)
 {
 	var localSymbols = symbols.slice(0);
-	var stringToReturn = ""
+	var valToReturn = {symbol: "",lengthToDel: -1};
 	
 	if (string[string.length-1] == "`")
 	{string = string.slice(0,string.length-1);}
 	
 	console.log("The string is:" + string)
 	
-	for (i = string.length - 1; i >= Math.max(string.length - maxLength,0); i--) 
+	for (i = string.length - 1; i >= 0; i--) 
 	{
 		
 		/*if (string[i] == " ") //if the current char is a space it just skipps it and goes back to the top
@@ -100,7 +140,9 @@ function replaceTrigger(string,maxLength)
 				if (trigger == shortString)
 				{
 					console.log("Found Match! it is: " + trigger);
-					stringToReturn = string.slice(0,i) + stp.symbol;	
+					console.log("stp.symbol: " + stp.symbol);
+					console.log("lengthToDel: " + revIndex);
+					valToReturn = {symbol: stp.symbol,lengthToDel: revIndex};	
 				}
 				//console.log(trigger);
 			});
@@ -121,14 +163,7 @@ function replaceTrigger(string,maxLength)
 		
 	}
 	
-	if (stringToReturn == "")
-	{
-		return string + "`"; //if no match is found
-	}
-	else
-	{
-		return stringToReturn;
-	}
+	return valToReturn;
 	
 	
 }
