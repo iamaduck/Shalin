@@ -33,12 +33,18 @@ chrome.input.ime.onKeyEvent.addListener(function backTick(engineID, keyData) {
 			}
 			else
 			{
-				delChars(triggerReplaceVal.lengthToDel+2);
-				textBuffer = textBuffer.slice(triggerReplaceVal.lengthToDel);
+				delChars(triggerReplaceVal.lengthToDel+1);
+				console.log("deleted " + triggerReplaceVal.lengthToDel+1 + " characters");
+				textBuffer = textBuffer.slice(triggerReplaceVal.lengthToDel+1);
+				console.log("deleted " + (triggerReplaceVal.lengthToDel+1) + " characters from text buffer");
 				
-				console.log("triggerReplaceVal: " + triggerReplaceVal.symbol);
-				chrome.input.ime.commitText({"contextID": context_id, "text": triggerReplaceVal.symbol});
-				textBuffer += triggerReplaceVal.symbol;
+				setTimeout(function () { //this code needs to be delyed to allow time for the above to finish
+					console.log("triggerReplaceVal: " + triggerReplaceVal.symbol);
+					chrome.input.ime.commitText({"contextID": context_id, "text": triggerReplaceVal.symbol});
+					console.log("Commited " + triggerReplaceVal.symbol)
+					textBuffer += triggerReplaceVal.symbol;
+					console.log("Added " + triggerReplaceVal.symbol + " to textBuffer")
+				} , 50);
 				
 			}
 			
@@ -102,18 +108,13 @@ function replaceTrigger(string)
 	var localSymbols = symbols.slice(0);
 	var valToReturn = {symbol: "",lengthToDel: -1};
 	
-	if (string[string.length-1] == "`")
+	if (string[string.length-1] == "`") //removes the ` character from the front
 	{string = string.slice(0,string.length-1);}
 	
 	console.log("The string is:" + string)
 	
 	for (i = string.length - 1; i >= 0; i--) 
 	{
-		
-		/*if (string[i] == " ") //if the current char is a space it just skipps it and goes back to the top
-		{
-			continue;
-		}*/
 		
 		var revIndex = string.length - (i+1); //revIndex is the current distance from the end of the srtring, 0 = end of string
 		var shortString = string.slice(string.length - (revIndex+1), string.length);
