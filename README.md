@@ -7,10 +7,11 @@
 - Enable/Disable
 - No external calls (runs locally)
 
-**To-do**
+**To-do (in no particular order)**
 - Add options page
 - Add ability to change trigger key
 - Add more user-friendly way to add your own symbols
+- Add popup that recommends the extension be disabled when a password field is detected
 - Clean up existing UI
 - Add more symbols
 - Clean up code
