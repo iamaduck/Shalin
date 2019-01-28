@@ -1,4 +1,4 @@
-# Shalin
+# Shalin v0.1.2
 ### Chrome extension that provides shortcuts to math symbol replacements for what you're typing.
 
 **Features**
