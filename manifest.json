@@ -1,7 +1,7 @@
 {
 	"name": "Shalin",
 	"description": "Suggests math symbol replacements for what you're typing.",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"manifest_version": 2,
 	"author": "Ben Potter",
 

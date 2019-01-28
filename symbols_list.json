@@ -1,0 +1,8 @@
+[
+
+	{"symbol": "∀", 
+			"triggers": ["for all"] },
+	{"symbol": "=",
+			"triggers": ["eql", "equal", "equals"] }
+	
+]

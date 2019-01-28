@@ -1,12 +1,17 @@
 var context_id = -1;
-var symbols = [];
 var textBuffer = "";
 var TEXTBUFFER_MAX = 50;
 
+var symbols;
 
-var active = false;
+var script = document.createElement('script');
+ 
+script.src = 'jquery-3.3.1.js';
+document.getElementsByTagName('head')[0].appendChild(script); 
 
 console.log("Shalin - Background script started");
+
+setTimeout(function () { setSymbol(); } , 50);
 
 chrome.input.ime.onFocus.addListener(function focusWindow(context) {
 	context_id = context.contextID;
@@ -49,13 +54,15 @@ chrome.input.ime.onKeyEvent.addListener(function backTick(engineID, keyData) {
 			}
 			
 			return true;
-		} else if (keyData.type == "keydown" && keyData.key.match(/[ -~]+/)) {
+		} else if (keyData.type == "keydown" && keyData.key.match("Backspace")) {
+			chrome.input.ime.sendKeyEvents({"contextID": context_id, "keyData": [{"type": "keydown", "requestId": "1", "key": "8", "code": "Backspace"}]});
+			setTimeout(function () { textBuffer = textBuffer.slice(0, -2); }, 10);
+		} else if (keyData.type == "keydown" && keyData.key.match(/[ -~]/)) {    //[ -~]+
+			//console.log(keyData.key);
 			console.log("keyData.value: " + textBuffer);
 			textBuffer += keyData.key;
 			if (textBuffer.length > TEXTBUFFER_MAX) {textBuffer = textBuffer.slice(textBuffer.length - TEXTBUFFER_MAX);}
 			return false;
-		//} else if (keyData.type == "keydown" && keyData.key.match(/"8"/) {
-		//	textBuffer = textBuffer.slice(1);
 		};
 });
 
@@ -91,8 +98,16 @@ chrome.runtime.onMessage.addListener(
 
 function setSymbol()
 {
+	//var symbols = [];
+	//symbols = [{symbol:"∀",triggers:["for all"]},{symbol:'=',triggers:["eql","equal","equals"]}];
 	
-	symbols = [{symbol:"∀",triggers:["for all"]},{symbol:'=',triggers:["eql","equal","equals"]}];
+	//var symbols;
+	
+	$.getJSON("symbols_list.json", function(data) {
+    
+		symbols = data;
+	
+	});
 	
 };
 
@@ -105,8 +120,11 @@ function TESTprintSymbol()
 
 function replaceTrigger(string)
 {
+	setSymbol();
+	
 	var localSymbols = symbols.slice(0);
 	var valToReturn = {symbol: "",lengthToDel: -1};
+	
 	
 	if (string[string.length-1] == "`") //removes the ` character from the front
 	{string = string.slice(0,string.length-1);}
