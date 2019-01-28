@@ -35,6 +35,7 @@ chrome.input.ime.onKeyEvent.addListener(function backTick(engineID, keyData) {
 			{
 				textBuffer += keyData.value;
 				if (textBuffer.length > TEXTBUFFER_MAX) {textBuffer = textBuffer.slice(textBuffer.length - TEXTBUFFER_MAX);}
+				chrome.input.ime.commitText({"contextID": context_id, "text": "`"});
 			}
 			else
 			{

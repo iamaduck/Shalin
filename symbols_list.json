@@ -1,8 +1,12 @@
 [
-
-	{"symbol": "∀", 
+	{"symbol": "∀",
 			"triggers": ["for all"] },
 	{"symbol": "=",
-			"triggers": ["eql", "equal", "equals"] }
-	
+			"triggers": ["eql", "equal", "equals"] },
+	{"symbol": "∃", 
+			"triggers": ["exists", "there exists"] },
+	{"symbol": "ℤ", 
+			"triggers": ["integers", "the integers"] },
+	{"symbol": "∈",
+			"triggers": ["element", "element of"] }
 ]
