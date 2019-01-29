@@ -8,5 +8,7 @@
 	{"symbol": "ℤ", 
 			"triggers": ["integers", "the integers"] },
 	{"symbol": "∈",
-			"triggers": ["element", "element of"] }
+			"triggers": ["element", "element of"] },
+	{"symbol": "ℝ",
+			"triggers": ["real", "real numbers"] }
 ]
