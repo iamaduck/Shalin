@@ -1,4 +1,4 @@
-# Shalin v0.1.3
+# Shalin v0.1.4
 ### Chrome extension that provides shortcuts to math symbol replacements for what you're typing.
 
 **Features**
@@ -6,13 +6,14 @@
 - Lightweight
 - Enable/Disable
 - No external calls (runs locally)
+- Most symbols from https://en.wikipedia.org/wiki/List_of_mathematical_symbols
 
 **To-do (in no particular order)**
+- Add landing page at http://shalin.benpotter.ca
 - Add options page
 - Add ability to change trigger key
 - Add more user-friendly way to add your own symbols
 - Add popup that recommends the extension be disabled when a password field is detected
 - Clean up existing UI
-- Add more symbols
 - Clean up code
 - Add comments
