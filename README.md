@@ -1,6 +1,9 @@
 # Shalin v0.1.4
 ### Chrome extension that provides shortcuts to math symbol replacements for what you're typing.
 
+Available on the Chrome Web Store!
+https://chrome.google.com/webstore/detail/shalin/pdakidnecjjjcekpdccdjhombkklccnh
+
 **Features**
 - Instantly change trigger words into the associated symbol using "`"
 - Lightweight
