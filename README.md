@@ -1,6 +1,9 @@
 # Shalin v0.1.4
 ### Chrome extension that provides shortcuts to math symbol replacements for what you're typing.
 
+## Important Note
+### Unfortunately, it appears Chrome has been updated to remove the functionality that makes this extension work properly. It is no longer maintained, and is unlikely to be updated unless the functionality returns in some form. My apologies!
+
 Available on the Chrome Web Store!
 https://chrome.google.com/webstore/detail/shalin/pdakidnecjjjcekpdccdjhombkklccnh
 
